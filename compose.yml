@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        WORKDIR: ${WORKDIR}
+        PYTHON_IMAGE_VERSION: ${PYTHON_IMAGE_VERSION}
+        USERNAME: ${USERNAME}
+        GROUPNAME: ${GROUPNAME}
+        UID: ${UID}
+        GID: ${GID}
+    environment: 
+      - TZ=${TIMEZONE}
+      # - PYTHONPATH=${WORKDIR}
+    volumes:
+        - ./:${WORKDIR}
+    restart: always
+    ports:
+      - ${APP_PORT}:5000
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    tty: true
